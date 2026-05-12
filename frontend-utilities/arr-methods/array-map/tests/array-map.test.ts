@@ -3,7 +3,10 @@ import { myMap } from "../src/array-map";
 
 declare global {
   interface Array<T> {
-    myMap<V>(callback: (item: T, index: number, array: T[]) => V): V[];
+    myMap<V>(
+      callback: (item: T, index: number, array: T[]) => V,
+      thisArg?: unknown,
+    ): V[];
   }
 }
 
@@ -19,6 +22,24 @@ assert.deepEqual(
 assert.deepEqual(
   [1, 2, 3].myMap((x: number, i) => x * i),
   [0, 2, 6],
+);
+
+// callback receives array
+assert.deepEqual(
+  [1, 2, 3].myMap((_, i, arr: number[]) => arr[i]! * 2),
+  [2, 4, 6],
+);
+
+// accepts a thisArg parameter
+const transformer = {
+  double: (x: number) => x * 2,
+};
+
+assert.deepEqual(
+  [1, 2, 3].myMap(function (this: typeof transformer, x) {
+    return this.double(x);
+  }, transformer),
+  [2, 4, 6],
 );
 
 // callback receives array

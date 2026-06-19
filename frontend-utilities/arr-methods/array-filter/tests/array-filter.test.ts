@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { myFilter } from "../src/array-filter";
+import { myFilter2 } from "../src/array-filter2";
 
 declare global {
   interface Array<T> {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-(Array.prototype as any).myFilter = myFilter;
+(Array.prototype as any).myFilter = myFilter2;
 
 // basic filter transformation
 assert.deepStrictEqual(

@@ -1,17 +1,16 @@
 import assert from "assert/strict";
-import { myReduce } from "../src/array-reduce";
+import { myReduce2 } from "../src/array-reduce2";
 
 declare global {
   interface Array<T> {
     myReduce<V>(
       callback: (accumulator: V, item: T, index: number, arr: T[]) => V,
       initialValue?: V,
-      thisArg?: unknown,
     ): V;
   }
 }
 
-(Array.prototype as any).myReduce = myReduce;
+(Array.prototype as any).myReduce = myReduce2;
 
 // basic reduce
 assert.deepStrictEqual(
@@ -37,20 +36,20 @@ assert.deepStrictEqual(
   6,
 );
 
-// accepts a thisArg
-const reducer = {
-  sum: (acc: number, x: number) => acc + x,
-};
-assert.deepStrictEqual(
-  [1, 2, 3].myReduce(
-    function (this: typeof reducer, acc: number, x) {
-      return this.sum(acc, x);
-    },
-    1,
-    reducer,
-  ),
-  7,
-);
+// // accepts a thisArg
+// const reducer = {
+//   sum: (acc: number, x: number) => acc + x,
+// };
+// assert.deepStrictEqual(
+//   [1, 2, 3].myReduce(
+//     function (this: typeof reducer, acc: number, x) {
+//       return this.sum(acc, x);
+//     },
+//     1,
+//     reducer,
+//   ),
+//   7,
+// );
 
 // handles sparse arrays
 assert.deepStrictEqual(

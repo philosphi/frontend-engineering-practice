@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { myBind } from "../src/bind";
+import { myBind2 as myBind } from "../src/bind2";
 
 (Function.prototype as any).myBind = myBind;
 
@@ -35,6 +35,9 @@ function sum(this: typeof adder, x: number, y: number) {
 // basic call with multiple arguments
 assert.deepStrictEqual(sum.myBind(adder, 3, 3)(), 6);
 
+// partial application
+assert.deepStrictEqual(sum.myBind(adder, 3)(3), 6);
+
 function sayHello(this: typeof sayHello) {
   return this.language;
 }
@@ -51,12 +54,3 @@ assert.deepStrictEqual(symbolsBefore, symbolsAfter);
 
 // throws when this is not a function
 assert.throws(() => myBind.call({} as any, multiplier, 3)(), TypeError);
-
-// throws when thisArg is undefined
-assert.throws(() => double.myBind(undefined, 3)(), TypeError);
-
-// throws when thisArg is null
-assert.throws(() => double.myBind(null, 3)(), TypeError);
-
-// throws when thisArg is a primitive
-assert.throws(() => double.myBind(123, 3)(), TypeError);

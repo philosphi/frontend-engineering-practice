@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { myFlatten } from "../src/array-flatten";
+import { myFlatten2 as myFlatten } from "../src/array-flatten2";
 
 declare global {
   interface Array<T> {

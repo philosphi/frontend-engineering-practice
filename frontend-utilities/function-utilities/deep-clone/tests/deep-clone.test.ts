@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { deepClone } from "../src/deep-clone";
+import { deepClone2 as deepClone } from "../src/deep-clone2";
 
 // primitive value
 let original: unknown = 123;

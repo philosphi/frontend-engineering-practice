@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { deepEqual } from "../src/deep-equal";
+import { deepEqual2 as deepEqual } from "../src/deep-equal2";
 
 // primitive value
 let valueA: unknown = 123;
@@ -7,6 +7,10 @@ let valueB: unknown = 123;
 assert.strictEqual(deepEqual(valueA, valueB), true);
 
 valueB = "123";
+assert.strictEqual(deepEqual(valueA, valueB), false);
+
+// mixed primitive value and object
+valueB = {};
 assert.strictEqual(deepEqual(valueA, valueB), false);
 
 // undefined value
@@ -83,8 +87,21 @@ let extendedValueB = valueB as unknown & { friend: typeof valueB };
 extendedValueB.friend = valueB;
 assert.deepStrictEqual(deepEqual(extendedValueA, extendedValueB), true);
 
-extendedValueB.friend = { name: "Phin" };
-assert.deepStrictEqual(deepEqual(extendedValueA, extendedValueB), false);
+// circular reference at different depths
+valueA = { name: "Phi" };
+extendedValueA = valueA as unknown & { friend: unknown };
+valueB = { name: "Phin" };
+extendedValueB = valueB as unknown & { friend: unknown };
+extendedValueA.friend = extendedValueB;
+extendedValueB.friend = extendedValueA;
+
+let valueC: unknown = { name: "Phi" };
+let extendedValueC = valueC as unknown & { friend: unknown };
+let valueD: unknown = { name: "Phin" };
+let extendedValueD = valueD as unknown & { friend: unknown };
+extendedValueC.friend = extendedValueD;
+extendedValueD.friend = extendedValueD;
+assert.deepStrictEqual(deepEqual(extendedValueA, extendedValueC), false);
 
 // date object
 valueA = new Date("2026-05-15");

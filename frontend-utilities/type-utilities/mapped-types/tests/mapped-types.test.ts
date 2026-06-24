@@ -1,11 +1,11 @@
 import {
-  MyPartial,
-  MyRequired,
-  MyReadonly,
-  MyPick,
-  MyOmit,
-  MyReturnType,
-} from "../src/mapped-types";
+  MyPartial2 as MyPartial,
+  MyRequired2 as MyRequired,
+  MyReadonly2 as MyReadonly,
+  MyPick2 as MyPick,
+  MyOmit2 as MyOmit,
+  MyReturnType2 as MyReturnType,
+} from "../src/mapped-types2";
 
 type Assert<T extends true> = T;
 type Equals<A, B> = A extends B ? (B extends A ? true : false) : false;

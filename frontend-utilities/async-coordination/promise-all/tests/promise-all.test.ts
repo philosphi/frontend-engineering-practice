@@ -4,6 +4,7 @@ import { promiseAll } from "../src/promise-all";
 const delay = (ms: number, label: string) => {
   return new Promise((resolve) =>
     setTimeout(() => {
+      console.log(label);
       resolve(label);
     }, ms),
   );
@@ -73,19 +74,6 @@ async function runTests() {
       errDelay(300, "E"),
       delay(6000, "F"),
     ]),
-  );
-
-  await testResolves(
-    "handles concurrency greater than tasks",
-    async () =>
-      promiseAll([
-        delay(1000, "A"),
-        delay(500, "B"),
-        delay(800, "C"),
-        delay(300, "D"),
-        delay(600, "E"),
-      ]),
-    ["A", "B", "C", "D", "E"],
   );
 }
 

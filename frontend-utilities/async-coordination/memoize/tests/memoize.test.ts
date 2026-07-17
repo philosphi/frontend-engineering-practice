@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { memoize } from "../src/memoize";
+import { memoize2 } from "../src/memoize2";
 
 // returns cached result
 let callCount = 0;
@@ -7,19 +7,19 @@ function add(a: number, b: number) {
   callCount++;
   return a + b;
 }
-const memoizedAdd = memoize(add);
-memoizedAdd(5, 4);
-memoizedAdd(5, 4);
+const memoize2dAdd = memoize2(add);
+memoize2dAdd(5, 4);
+memoize2dAdd(5, 4);
 
-assert.deepEqual(memoizedAdd(5, 4), 9);
+assert.deepEqual(memoize2dAdd(5, 4), 9);
 assert.deepEqual(callCount, 1);
 
 // same arguments in different order generates different cached results
-assert.deepEqual(memoizedAdd(4, 5), 9);
+assert.deepEqual(memoize2dAdd(4, 5), 9);
 assert.deepEqual(callCount, 2);
 
 // different arguments generates different cached results
-assert.deepEqual(memoizedAdd(5, 5), 10);
+assert.deepEqual(memoize2dAdd(5, 5), 10);
 assert.deepEqual(callCount, 3);
 
 // sets the this from the caller into the original function
@@ -30,11 +30,11 @@ function multiply<T extends { factor: number }>(this: T, a: number) {
   return a * this.factor;
 }
 
-const memoizedMultiply = memoize(multiply);
+const memoize2dMultiply = memoize2(multiply);
 
 const multiplier = {
   factor: 3,
-  multiply: memoizedMultiply,
+  multiply: memoize2dMultiply,
 };
 
 assert.deepEqual(multiplier.multiply(3), 9);

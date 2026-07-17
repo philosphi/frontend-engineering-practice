@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { promiseAll } from "../src/promise-all";
+import { promiseAll2 } from "../src/promise-all2";
 
 const delay = (ms: number, label: string) => {
   return new Promise((resolve) =>
@@ -30,16 +30,18 @@ async function testResolves(
   } catch (err) {
     if (err instanceof Error) {
       console.log(`✗ ${label}: ${err.message}`);
+      throw err;
     }
   }
 }
 
-async function testRejects(label: string, fn: Function) {
+async function testRejects(label: string, fn: Function, expectedError: Error) {
   try {
     await fn();
     console.log(`✗ ${label}: expected rejection but resolved`);
   } catch (err) {
     if (err instanceof Error) {
+      assert.deepStrictEqual(err, expectedError);
       console.log(`✓ ${label}: ${err.message}`);
     }
   }
@@ -48,14 +50,14 @@ async function testRejects(label: string, fn: Function) {
 async function runTests() {
   await testResolves(
     "handles empty task array",
-    async () => promiseAll([]),
+    async () => promiseAll2([]),
     [],
   );
 
   await testResolves(
     "preserves original order",
     async () =>
-      promiseAll([
+      promiseAll2([
         delay(1000, "A"),
         delay(500, "B"),
         delay(800, "C"),
@@ -65,15 +67,18 @@ async function runTests() {
     ["A", "B", "C", "D", "E"],
   );
 
-  await testRejects("rejects on task failure", async () =>
-    promiseAll([
-      delay(1000, "A"),
-      delay(500, "B"),
-      delay(800, "C"),
-      delay(1200, "D"),
-      errDelay(300, "E"),
-      delay(6000, "F"),
-    ]),
+  await testRejects(
+    "rejects on task failure",
+    async () =>
+      promiseAll2([
+        delay(1000, "A"),
+        delay(500, "B"),
+        delay(800, "C"),
+        delay(1200, "D"),
+        errDelay(300, "E"),
+        delay(6000, "F"),
+      ]),
+    Error("E failed"),
   );
 }
 

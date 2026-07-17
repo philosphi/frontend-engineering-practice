@@ -1,11 +1,11 @@
-import { myCurry } from "../src/curry";
+import { myCurry2 } from "../src/curry";
 import assert from "assert/strict";
 
 const multiply = (x: number, y: number) => {
   return x * y;
 };
 
-const curriedMultiply = myCurry(multiply);
+const curriedMultiply = myCurry2(multiply);
 
 const double = curriedMultiply(2);
 
@@ -21,7 +21,7 @@ const printLabel = (label: string, x: number) => {
   return `${label}: ${x}`;
 };
 
-const curriedPrintLabel = myCurry(printLabel);
+const curriedPrintLabel = myCurry2(printLabel);
 
 const printGroup = curriedPrintLabel("Group");
 

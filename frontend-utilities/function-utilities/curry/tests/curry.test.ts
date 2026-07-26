@@ -1,4 +1,4 @@
-import { myCurry2 } from "../src/curry";
+import { myCurry2 } from "../src/curry2";
 import assert from "assert/strict";
 
 const multiply = (x: number, y: number) => {

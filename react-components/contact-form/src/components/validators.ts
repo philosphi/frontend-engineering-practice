@@ -5,15 +5,25 @@
 
 export function validateName(value: string): string {
   // TODO: required
-  return ''
+  const nameRegex = /^[a-zA-Z\s.'-]{2,50}$/;
+  if (!nameRegex.test(value)) {
+    return "invalid name format";
+  }
+  return "";
 }
 
 export function validateEmail(value: string): string {
   // TODO: required, valid email format
-  return ''
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(value)) {
+    return "invalid email format";
+  }
+
+  return "";
 }
 
 export function validateMessage(value: string): string {
   // TODO: required, minimum 10 characters
-  return ''
+  if (value.length < 10) return "minimum 10 characters";
+  return "";
 }

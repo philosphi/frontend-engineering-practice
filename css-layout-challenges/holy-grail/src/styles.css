@@ -1,0 +1,55 @@
+/*
+ * Holy Grail Layout
+ *
+ * Build the classic five-region layout:
+ *   - header spans the full width, fixed height
+ *   - footer spans the full width, fixed height
+ *   - nav (left) and aside (right) have fixed widths
+ *   - main fills the remaining space and grows first when resized
+ *
+ * Requirements to satisfy:
+ *   - Full viewport height, no page-level scrollbar from the shell itself
+ *   - Source order is header, nav, main, aside, footer (nav before main
+ *     in the DOM), but nav must render on the left and aside on the right
+ *   - main must be the first region to receive extra space on wide
+ *     viewports, and the first to shrink on narrow ones
+ *   - Stack everything into a single column below a chosen breakpoint
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.holy-grail {
+  /* TODO: lay out header / nav / main / aside / footer */
+}
+
+.holy-grail__header {
+  /* TODO */
+}
+
+.holy-grail__nav {
+  /* TODO */
+}
+
+.holy-grail__main {
+  /* TODO */
+}
+
+.holy-grail__aside {
+  /* TODO */
+}
+
+.holy-grail__footer {
+  /* TODO */
+}
+
+@media (max-width: 700px) {
+  .holy-grail {
+    /* TODO: single-column stack */
+  }
+}

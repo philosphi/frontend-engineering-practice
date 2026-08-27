@@ -1,0 +1,12 @@
+{
+  "name": "holy-grail",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
